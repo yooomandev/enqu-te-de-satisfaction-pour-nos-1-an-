@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#201526">
+  <meta name="description" content="Une petite surprise pleine d'amour, juste pour toi.">
+  <title>Pour Hajar, avec tout mon amour 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --night: #201526;
+  --night-mid: #302039;
+  --berry: #aa536f;
+  --blush: #f2b5c8;
+  --rose: #ffcedc;
+  --cream: #fff5ef;
+  --white: #fffdfb;
+  --muted: #cbb7c8;
+  --edge: rgba(255, 236, 246, 0.19);
+  --font-sans: 'DM Sans', 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--night);
+  color: var(--white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+button:focus-visible, input:focus-visible, .answer-option:focus-within {
+  outline: 3px solid #ffd7a8;
+  outline-offset: 4px;
+}
+[hidden] { display: none !important; }
+::selection { background: var(--rose); color: var(--night); }
+
+.backdrop { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; background: radial-gradient(ellipse at 50% 0%, #483049 0%, #281b31 42%, #1b1322 90%); }
+.glow { position: absolute; display: block; filter: blur(4px); border-radius: 50%; opacity: 0.5; }
+.glow--one { width: 39rem; height: 39rem; background: radial-gradient(circle, #96456855 0%, transparent 69%); top: -22rem; left: -14rem; }
+.glow--two { width: 38rem; height: 38rem; background: radial-gradient(circle, #ca786644 0%, transparent 69%); right: -19rem; bottom: -25rem; }
+.glow--three { width: 27rem; height: 27rem; background: radial-gradient(circle, #91588735 0%, transparent 69%); right: -14rem; top: 9%; }
+.tiny-star { position: absolute; color: #ffe2c2; font-size: 1rem; opacity: 0.45; animation: twinkle 4s ease-in-out infinite; }
+.tiny-star--one { left: 10%; top: 24%; }
+.tiny-star--two { right: 13%; top: 19%; animation-delay: 1s; }
+.tiny-star--three { left: 18%; bottom: 20%; animation-delay: 1.8s; }
+.tiny-star--four { right: 8%; bottom: 30%; animation-delay: 2.5s; }
+/* Champignons discrets, en plus des étoiles et des cœurs, sans toucher au design. */
+.mushroom { position: absolute; font-size: clamp(22px, 3vw, 37px); opacity: .39; filter: drop-shadow(0 0 12px #ec9bb244); animation: mushroom-drift 7s ease-in-out infinite; user-select: none; }
+.mushroom--one { left: 4%; top: 12%; animation-delay: -1s; }
+.mushroom--two { right: 5%; top: 32%; font-size: 27px; animation-delay: -3s; }
+.mushroom--three { left: 7%; bottom: 20%; font-size: 29px; animation-delay: -5s; }
+.mushroom--four { right: 10%; bottom: 10%; animation-delay: -2s; }
+.mushroom--five { left: 24%; bottom: 5%; font-size: 22px; animation-delay: -4s; }
+.mushroom--six { right: 23%; top: 8%; font-size: 22px; animation-delay: -6s; }
+
+.page { position: relative; z-index: 1; width: min(100% - 40px, 1020px); min-height: 100svh; margin: auto; display: flex; flex-direction: column; }
+.site-header { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 31px 0; color: #eee0e8; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; letter-spacing: 0.05em; font-weight: 700; }
+.brand-icon { color: #eaa1b7; font-size: 24px; line-height: 1; }
+.header-caption { color: #ad96ae; font-size: 12px; font-weight: 500; letter-spacing: 0.025em; }
+.screen { flex: 1; width: 100%; }
+.screen--active { animation: enter 600ms cubic-bezier(.16, 1, .3, 1) both; }
+.gate-screen, .quiz-screen { display: grid; place-items: center; align-content: center; }
+.gate-card { text-align: center; width: min(100%, 600px); padding: 18px 34px 38px; }
+
+.envelope-art { height: 163px; position: relative; display: grid; place-items: center; margin-bottom: 4px; }
+.envelope { position: relative; width: 126px; height: 89px; margin-top: 18px; border-radius: 8px; background: linear-gradient(138deg, #fbccda, #d98fa7); transform: rotate(-8deg); box-shadow: 0 19px 50px #13091970, 0 2px 18px #ec9bb255; animation: float 5s ease-in-out infinite; }
+.envelope::before, .envelope::after { content: ''; position: absolute; inset: 0; }
+.envelope::before { background: #edabc0; clip-path: polygon(0 0, 50% 64%, 100% 0); border-radius: 8px; z-index: 1; }
+.envelope::after { background: linear-gradient(10deg, #f2bed0, #de9bb0); clip-path: polygon(0 100%, 49.9% 39%, 100% 100%); border-radius: 8px; z-index: 2; }
+.envelope-flap { position: absolute; z-index: 3; inset: 0; background: linear-gradient(165deg, #ffe0e8, #f0b4c6); clip-path: polygon(0 0, 100% 0, 50% 58%); border-radius: 8px; }
+.envelope-seal { position: absolute; z-index: 4; top: 42%; left: 50%; translate: -50% -10%; display: grid; place-items: center; height: 29px; width: 29px; background: #a54564; color: #ffeced; border-radius: 50%; font-size: 17px; box-shadow: 0 2px 6px #74385035; }
+.envelope-glimmer { position: absolute; color: #fff2d6; font-size: 25px; }
+.envelope-glimmer--one { top: 25px; left: 29%; }
+.envelope-glimmer--two { bottom: 38px; right: 27%; font-size: 18px; }
+
+.eyebrow { margin: 0; color: #e9b4c6; letter-spacing: 0.19em; text-transform: uppercase; font-size: 10px; font-weight: 700; }
+.gate-card > .eyebrow { display: flex; align-items: center; justify-content: center; gap: 13px; }
+.eyebrow-line { height: 1px; width: 20px; background: #d7a0b5; opacity: 0.65; }
+.gate-card h1, .letter-heading h2 { font-family: var(--font-serif); font-weight: 600; font-size: clamp(39px, 6vw, 66px); line-height: 1.19; letter-spacing: -0.038em; margin: 22px 0 19px; }
+h1 em, h2 em { color: #edb0c3; font-weight: 500; }
+.gate-description { max-width: 430px; margin: 0 auto 35px; font-size: 15px; color: #dfccd9; line-height: 1.9; }
+.gate-description span { color: #ecb0c5; font-size: 19px; }
+.unlock-form { text-align: left; width: min(100%, 385px); margin: auto; }
+.unlock-form label { display: block; font-size: 13px; font-weight: 700; margin: 0 0 9px; color: #f6e9f0; }
+.input-shell { display: flex; align-items: center; gap: 12px; background: #ffffff10; border: 1px solid #ffe0f04d; border-radius: 13px; padding: 0 16px; min-height: 56px; transition: border-color 160ms, background 160ms; }
+.input-shell:focus-within { border-color: #ffd9e6; background: #ffffff18; }
+.input-shell--error { border-color: #ff8d9c; }
+.input-icon { display: flex; color: #dfa6bb; }
+.input-shell input { border: 0; outline: none; background: transparent; color: #fff9fb; min-width: 0; flex: 1; height: 55px; letter-spacing: .12em; font-size: 15px; }
+.input-shell input::placeholder { color: #bcaabd; opacity: 1; }
+.input-hint { color: #b8a4b6; font-size: 12px; margin: 10px 0 22px; }
+.input-error { color: #ffc1cd; font-size: 12px; margin: -11px 0 15px; }
+.button { min-height: 52px; border-radius: 12px; padding: 14px 19px; font-size: 14px; font-weight: 700; border: 1px solid transparent; transition: background 200ms, transform 200ms, box-shadow 200ms, opacity 200ms; }
+.button:active:not(:disabled) { transform: scale(.98); }
+.button--full { width: 100%; }
+.button--primary { background: linear-gradient(115deg, #ffcedb 0%, #ef9fbc 100%); color: #4e263e; box-shadow: 0 12px 32px #f3a0bb19; }
+.button--primary:hover:not(:disabled) { background: linear-gradient(115deg, #ffe2e8, #f7b7cc); box-shadow: 0 15px 36px #f3a0bb2b; transform: translateY(-2px); }
+.button--primary:disabled { opacity: .43; box-shadow: none; }
+.button-arrow { margin-left: 11px; font-size: 21px; vertical-align: -1px; }
+.gate-postscriptum { margin-top: 29px; color: #ad99ad; font-family: var(--font-serif); font-size: 13px; font-style: italic; }
+
+.quiz-card { width: min(100%, 660px); min-height: 588px; position: relative; overflow: hidden; background: linear-gradient(152deg, #4b304bfc, #39263dfc 57%, #352337fc); border: 1px solid #fad1e42e; border-radius: 27px; padding: 39px 43px 34px; box-shadow: 0 25px 90px #140a1d77, inset 0 1px #ffffff13; }
+.quiz-topline { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 22px; }
+.question-counter { color: #f7d9e5; font-size: 13px; font-weight: 700; letter-spacing: 0.07em; }
+.progress-track { overflow: hidden; background: #fff3fc1a; height: 5px; border-radius: 99px; }
+.progress-fill { display: block; width: 25%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #e995b4, #ffe7d6); transition: width 380ms ease; }
+.question-content { position: relative; z-index: 1; padding-top: 42px; animation: enter 420ms ease both; }
+.question-kicker { color: #e2a8bd; font-family: var(--font-serif); font-style: italic; font-size: 15px; margin: 0 0 12px; }
+.question-kicker span:last-child { margin-left: 5px; }
+.quiz-card h2 { font-family: var(--font-serif); font-size: clamp(27px, 4.1vw, 39px); line-height: 1.32; font-weight: 500; letter-spacing: -.025em; margin: 0 0 12px; min-height: 95px; }
+.question-description { font-size: 13px; line-height: 1.65; color: #d1b7ca; margin: 0 0 23px; }
+.answer-list { margin: 0; padding: 0; border: 0; display: grid; gap: 11px; }
+.answer-option { display: flex; align-items: center; gap: 14px; padding: 15px 18px; min-height: 62px; border: 1px solid #e9c7dc38; background: #fffafb0a; border-radius: 13px; cursor: pointer; transition: background 160ms, border-color 160ms, transform 160ms; }
+.answer-option:hover { border-color: #f3bbcbb0; background: #fffafb13; transform: translateX(2px); }
+.answer-option.is-selected { background: #f4a9c31f; border-color: #f3b2ca; }
+.answer-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.answer-letter { display: grid; flex: 0 0 32px; place-items: center; width: 32px; height: 32px; border: 1px solid #f5d0dd44; border-radius: 8px; font-weight: 700; font-size: 12px; color: #edbfd0; background: #e4b4d011; }
+.is-selected .answer-letter { background: #f7c0d0; color: #51243a; border-color: #f7c0d0; }
+.answer-text { flex: 1; color: #fff0f6; font-size: 14px; font-weight: 500; line-height: 1.5; }
+.answer-check { display: grid; place-items: center; border-radius: 50%; border: 1px solid #f6c1d159; width: 21px; height: 21px; color: transparent; font-size: 12px; }
+.is-selected .answer-check { color: #522039; background: #f5c3d2; border-color: #f5c3d2; }
+.quiz-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 31px; position: relative; z-index: 1; }
+.button--back { background: transparent; border-color: #e9c7dc43; color: #ecd1e0; min-width: 112px; }
+.button--back:hover:not(:disabled) { background: #ffffff12; }
+.button--next { min-width: 155px; }
+.question-decoration { position: absolute; font-family: var(--font-serif); font-size: 210px; color: #eec5dc07; bottom: -100px; right: -26px; pointer-events: none; transform: rotate(-19deg); }
+.below-card { margin: 24px 0 34px; text-align: center; color: #bba5b8; font-family: var(--font-serif); font-style: italic; font-size: 13px; }
+
+.letter-screen { max-width: 760px; margin: 20px auto 0; }
+.letter-heading { text-align: center; padding: 13px 0 31px; }
+.heart-medallion { border: 1px solid #f6c3d65c; background: #d18fa31a; box-shadow: 0 0 50px #f4a8bd25, inset 0 0 22px #f7c4d525; width: 68px; height: 68px; display: grid; place-items: center; margin: 5px auto 26px; border-radius: 50%; color: #ffc9d8; font-size: 28px; animation: heartbeat 3s ease-in-out infinite; }
+.letter-heading h2 { font-size: clamp(39px, 6vw, 60px); margin: 12px 0 15px; }
+.letter-preface { max-width: 490px; margin: auto; color: #e5d0dd; line-height: 1.8; font-size: 15px; }
+.heading-ornament { display: inline-block; color: #e9b2c8; margin-top: 20px; letter-spacing: 0.25em; font-size: 14px; }
+.love-letter { position: relative; background: linear-gradient(180deg, #fffbf5 0%, #fff5ec 100%); color: #493643; padding: 38px clamp(25px, 6vw, 63px) 32px; border: 1px solid #fff7e7; border-radius: 17px; box-shadow: 0 23px 85px #0e061359, 0 3px 0 #eab2bf44; }
+.love-letter::before { position: absolute; content: ''; inset: 12px; border: 1px solid #e7c5ca60; border-radius: 10px; pointer-events: none; }
+.letter-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid #d2aeb755; padding-bottom: 18px; color: #a97486; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.letter-body { font-family: var(--font-serif); position: relative; z-index: 1; font-size: clamp(16px, 2.5vw, 18px); line-height: 2.06; }
+.letter-body p { margin: 22px 0; }
+.letter-body strong { color: #9b4b69; font-weight: 700; }
+.letter-greeting { font-style: italic; font-weight: 600; color: #9c4d6b; font-size: 24px; }
+.letter-signoff { font-size: clamp(26px, 5.5vw, 36px); font-style: italic; font-weight: 600; color: #9d4a6a; margin: 34px 0 12px !important; line-height: 1.5; }
+.letter-signoff span { font-family: var(--font-sans); display: inline-block; color: #c45679; animation: heartbeat 2.8s infinite; }
+.letter-bottom { text-align: center; color: #b96e8b; font-size: 17px; letter-spacing: .25em; padding-top: 17px; }
+.letter-outro { text-align: center; padding: 32px 0 20px; }
+.letter-outro p { color: #e6bdcf; font-family: var(--font-serif); font-style: italic; line-height: 1.7; }
+.button--outline { margin-top: 11px; background: transparent; color: #f9d5e2; border-color: #edc3d256; }
+.button--outline:hover { background: #ffffff10; }
+/* Le bonus garde les mêmes couleurs et boutons que le reste du site. */
+.gift-button { display: block; max-width: 100%; margin: 26px auto 6px; }
+.gift-message { width: min(100%, 570px); margin: 23px auto 16px; padding: 25px 26px; background: linear-gradient(152deg, #4b304bfc, #39263dfc); border: 1px solid #fad1e46a; border-radius: 17px; box-shadow: 0 18px 50px #140a1d66; animation: enter 500ms cubic-bezier(.16, 1, .3, 1) both; }
+.gift-symbol { display: block; margin-bottom: 8px; font-size: 28px; letter-spacing: .24em; }
+.gift-message p { margin: 0; color: #fff0f6; font-size: clamp(16px, 3vw, 20px); line-height: 1.6; font-style: normal; font-weight: 500; font-family: var(--font-serif); }
+.site-footer { padding: 23px 0 29px; color: #a990a6; font-size: 11px; letter-spacing: .075em; text-align: center; }
+.site-footer span { color: #dc91ae; padding-left: 4px; }
+
+.hearts-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 10; }
+.flying-heart { display: block; position: absolute; bottom: -45px; font-size: var(--heart-size); color: var(--heart-color); opacity: 0; animation: rise var(--heart-duration) ease-out forwards; left: var(--heart-left); transform: translateY(0) rotate(0); }
+.shake { animation: shake 350ms ease both; }
+.sr-only { border: 0; clip: rect(0,0,0,0); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap; width: 1px; }
+
+@keyframes enter { from { opacity: 0; transform: translateY(17px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-8px) rotate(-6deg); } }
+@keyframes twinkle { 0%, 100% { opacity: .18; } 50% { opacity: .75; } }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 13% { transform: scale(1.08); } 22% { transform: scale(1); } 33% { transform: scale(1.05); } 43% { transform: scale(1); } }
+@keyframes rise { 0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-16deg); } 14% { opacity: .9; } 78% { opacity: .75; } 100% { opacity: 0; transform: translate3d(var(--heart-drift), -108vh, 0) rotate(27deg); } }
+@keyframes mushroom-drift { 0%, 100% { transform: translateY(0) rotate(-7deg); } 50% { transform: translateY(-12px) rotate(8deg); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+
+@media (max-width: 640px) {
+  .page { width: min(100% - 28px, 1020px); }
+  .site-header { padding: 20px 2px; }
+  .header-caption { font-size: 10px; max-width: 124px; text-align: right; }
+  .brand { font-size: 12px; }
+  .mushroom { opacity: .25; }
+  .mushroom--five, .mushroom--six { display: none; }
+  .gift-button { width: 100%; }
+  .gate-card { padding: 10px 7px 22px; }
+  .envelope-art { height: 135px; }
+  .envelope { transform-origin: center; scale: .88; }
+  .gate-card h1 { margin: 15px 0 17px; font-size: clamp(36px, 10vw, 53px); }
+  .gate-description { font-size: 14px; line-height: 1.8; margin-bottom: 29px; }
+  .quiz-card { min-height: 565px; padding: 26px 21px 25px; border-radius: 20px; }
+  .quiz-topline .eyebrow { letter-spacing: .09em; }
+  .question-content { padding-top: 31px; }
+  .quiz-card h2 { min-height: 0; font-size: 29px; }
+  .question-description { margin-bottom: 21px; }
+  .answer-option { min-height: 62px; padding: 12px; gap: 11px; }
+  .quiz-actions { margin-top: 28px; }
+  .button--back { min-width: 92px; }
+  .button--next { min-width: 139px; }
+  .letter-screen { margin-top: 7px; }
+  .letter-heading { padding-bottom: 25px; }
+  .letter-heading h2 { font-size: 43px; }
+  .love-letter { padding: 27px 26px 26px; }
+  .letter-meta { letter-spacing: .04em; font-size: 9px; }
+  .letter-body { font-size: 16px; line-height: 1.95; }
+}
+@media (max-width: 370px) {
+  .page { width: min(100% - 20px, 1020px); }
+  .quiz-card { padding: 24px 15px; }
+  .quiz-card h2 { font-size: 26px; }
+  .answer-text { font-size: 13px; }
+  .button { padding: 12px; font-size: 12px; }
+  .letter-meta { display: grid; gap: 5px; }
+  .love-letter { padding-left: 20px; padding-right: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+</style>
+  
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <span class="glow glow--one"></span>
+    <span class="glow glow--two"></span>
+    <span class="glow glow--three"></span>
+    <span class="tiny-star tiny-star--one">✦</span>
+    <span class="tiny-star tiny-star--two">✧</span>
+    <span class="tiny-star tiny-star--three">✦</span>
+    <span class="tiny-star tiny-star--four">✧</span>
+    <span class="mushroom mushroom--one">🍄</span>
+    <span class="mushroom mushroom--two">🍄</span>
+    <span class="mushroom mushroom--three">🍄</span>
+    <span class="mushroom mushroom--four">🍄</span>
+    <span class="mushroom mushroom--five">🍄</span>
+    <span class="mushroom mushroom--six">🍄</span>
+  </div>
+  <div id="hearts-layer" class="hearts-layer" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="site-header">
+      <span class="brand" aria-label="Cœur"><span class="brand-icon" aria-hidden="true">♥</span></span>
+      <span class="header-caption">une surprise faite avec amour</span>
+    </header>
+
+    <!-- Écran 1 : le code secret. Le code est vérifié dans script.js. -->
+    <section class="screen screen--active gate-screen" id="gate-screen" aria-labelledby="gate-title">
+      <div class="gate-card">
+        <div class="envelope-art" aria-hidden="true">
+          <span class="envelope-glimmer envelope-glimmer--one">✧</span>
+          <span class="envelope-glimmer envelope-glimmer--two">✦</span>
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <span class="envelope-seal">♥</span>
+          </div>
+        </div>
+
+        <p class="eyebrow"><span class="eyebrow-line"></span> un message un peu spécial <span class="eyebrow-line"></span></p>
+        <h1 id="gate-title">J'ai quelque chose<br>à <em>te dire...</em></h1>
+        <p class="gate-description">Mais avant, il y a un petit secret à déverrouiller. <span aria-hidden="true">♡</span></p>
+
+        <form id="unlock-form" class="unlock-form" novalidate>
+          <label for="secret-code">Notre code secret</label>
+          <div class="input-shell">
+            <span class="input-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+            </span>
+            <input id="secret-code" name="secret-code" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="10" placeholder="JJ/MM/AAAA" aria-describedby="code-hint code-error" required>
+          </div>
+          <p class="input-hint" id="code-hint">Indice : une date qui a tout changé ✨<br>Écris la date avec les /, ou juste les 8 chiffres.</p>
+          <p class="input-error" id="code-error" role="alert" hidden>Oups, ce n'est pas notre date… réessaie, mon cœur ♡</p>
+          <button class="button button--primary button--full" type="submit">
+            Ouvrir mon petit secret <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Écran 2 : le questionnaire, construit avec les questions de script.js. -->
+    <section class="screen quiz-screen" id="quiz-screen" aria-labelledby="question-title" hidden>
+      <div class="quiz-card">
+        <div class="quiz-topline">
+          <span class="eyebrow">notre petit questionnaire</span>
+          <span class="question-counter" id="question-counter">01 / 04</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Progression du questionnaire" aria-valuemin="0" aria-valuemax="4" aria-valuenow="1" id="progress-track">
+          <span class="progress-fill" id="progress-fill"></span>
+        </div>
+
+        <div class="question-content" id="question-content">
+          <p class="question-kicker">Question <span id="question-number">01</span> <span aria-hidden="true">✧</span></p>
+          <h2 id="question-title"></h2>
+          <fieldset id="answer-list" class="answer-list">
+            <legend class="sr-only">Choisis une réponse</legend>
+          </fieldset>
+        </div>
+
+        <nav class="quiz-actions" aria-label="Navigation dans le questionnaire">
+          <button class="button button--back" id="back-button" type="button">← Retour</button>
+          <button class="button button--primary button--next" id="next-button" type="button" disabled>Continuer <span aria-hidden="true">→</span></button>
+        </nav>
+        <div class="question-decoration" aria-hidden="true">♥</div>
+      </div>
+    </section>
+
+    <!-- Écran 3 : la surprise finale. -->
+    <section class="screen letter-screen" id="letter-screen" aria-labelledby="letter-title" hidden>
+      <div class="letter-heading">
+        <div class="heart-medallion" aria-hidden="true">♥</div>
+        <p class="eyebrow">la vraie raison de ce petit quiz</p>
+        <h2 id="letter-title">Hajar, <em>mon cœur.</em></h2>
+        <p class="letter-preface">Ce quiz c'est surtout pour flex mes compétence en info et pour mes stats perso hhh et aussi pour ma lettre d'amour.</p>
+        <span class="heading-ornament" aria-hidden="true">✦ &nbsp; ♡ &nbsp; ✦</span>
+      </div>
+
+      <article class="love-letter" aria-label="Lettre d'amour pour Hajar">
+        <div class="letter-meta">
+          <span>Une lettre pour toi</span>
+          <span>Depuis le 10.10.2025</span>
+        </div>
+        <div class="letter-body">
+          <p class="letter-greeting">Hajar, mon cœur,</p>
+          <p>Merci d'être là à mes côtés depuis autant de temps. Ça fait maintenant un an que je te connais, et je suis partagé entre la sensation que c'est encore tout frais et celle que ça commence à faire un moment qu'on est là, à deux, à avancer ensemble.</p>
+          <p>Mais ce dont je suis sûr, c'est que je veux que ces « un an » se répètent à l'infini avec toi. Les sentiments que j'ai développés pour toi sont tellement forts qu'il m'est inconcevable d'imaginer un futur sans toi. Et InshaAllah, ce futur où tu es absente n'existera jamais.</p>
+          <p>Si aujourd'hui je suis amoureux de toi, c'est pour la personne <strong>sensible, intelligente, à l'écoute, gentille, courageuse, intéressante, drôle et attentionnée</strong> que tu es.</p>
+          <p>J'ai réellement la sensation d'être le plus chanceux d'avoir rencontré la fille de mes rêves, qui, en plus d'avoir toutes les qualités que j'ai citées et bien d'autres encore, est à mes yeux <strong>la plus belle femme du monde.</strong></p>
+          <p class="letter-signoff">Je t'aime, Hajar. <span aria-label="cœur">♥</span></p>
+        </div>
+        <div class="letter-bottom" aria-hidden="true">∞ &nbsp; ♥ &nbsp; ∞</div>
+      </article>
+
+      <div class="letter-outro">
+        <p>À notre histoire, et à tous les chapitres qu'il nous reste à écrire. ♡</p>
+        <button class="button button--primary gift-button" id="gift-button" type="button" aria-expanded="false" aria-controls="gift-message">Cliquez ici pour découvrir votre cadeau <span aria-hidden="true">🎁</span></button>
+        <div class="gift-message" id="gift-message" role="status" hidden>
+          <span class="gift-symbol" aria-hidden="true">🍄 ♥ 🍄</span>
+          <p>ouvre la boite à gant j'espère que ça va te plaire j'ai pris un gros risque hhh</p>
+        </div>
+        <button class="button button--outline" id="replay-button" type="button">Revivre cette petite surprise ↺</button>
+      </div>
+    </section>
+
+  </main>
+<script>
+'use strict';
+
+// 💗 PERSONNALISATION : modifie cette date si tu veux changer le code secret.
+// Attention : sur GitHub Pages, ce code et le contenu du site sont publics.
+const SECRET_CODE = '10/10/2025';
+
+// Les réponses restent uniquement dans ce navigateur, le temps de la visite.
+// Elles ne sont ni envoyées ni enregistrées sur un serveur.
+const questions = [
+  {
+    question: 'Es-tu satisfaite de notre rencontre jusqu’à maintenant ?',
+    answers: [
+      { letter: 'A', text: 'OUI' },
+      { letter: 'B', text: 'Bof' },
+      { letter: 'C', text: 'NUUULL !!!' },
+      { letter: 'D', text: 'À SUIVRE' }
+    ]
+  },
+  {
+    question: 'Suis-je pour toi une plus-value dans ta vie ?',
+    answers: [
+      { letter: 'A', text: 'OUI' },
+      { letter: 'B', text: 'NON' },
+      { letter: 'C', text: 'Mitigé' }
+    ]
+  },
+  {
+    question: 'Te vois-tu réellement te marier avec moi ? Ou fais-tu semblant ?',
+    answers: [
+      { letter: 'A', text: 'OUI (PROOF THAT)' },
+      { letter: 'B', text: 'JSP' },
+      { letter: 'C', text: 'NON' }
+    ]
+  },
+  {
+    question: "As-tu ce que tu attendais d'un petit copain en étant avec moi ?",
+    answers: [
+      { letter: 'A', text: 'OUI, même +' },
+      { letter: 'B', text: 'OUI, TOUT PILE' },
+      { letter: 'C', text: 'NON' },
+      { letter: 'D', text: "Aucune de ces réponses n'est correcte" }
+    ]
+  }
+];
+
+const gateScreen = document.getElementById('gate-screen');
+const quizScreen = document.getElementById('quiz-screen');
+const letterScreen = document.getElementById('letter-screen');
+const unlockForm = document.getElementById('unlock-form');
+const codeInput = document.getElementById('secret-code');
+const codeError = document.getElementById('code-error');
+const inputShell = document.querySelector('.input-shell');
+const questionCounter = document.getElementById('question-counter');
+const questionNumber = document.getElementById('question-number');
+const questionTitle = document.getElementById('question-title');
+const questionContent = document.getElementById('question-content');
+const answerList = document.getElementById('answer-list');
+const progressTrack = document.getElementById('progress-track');
+const progressFill = document.getElementById('progress-fill');
+const backButton = document.getElementById('back-button');
+const nextButton = document.getElementById('next-button');
+const replayButton = document.getElementById('replay-button');
+const giftButton = document.getElementById('gift-button');
+const giftMessage = document.getElementById('gift-message');
+const heartsLayer = document.getElementById('hearts-layer');
+
+let currentQuestion = 0;
+let answers = Array(questions.length).fill(null);
+
+function showScreen(screen) {
+  [gateScreen, quizScreen, letterScreen].forEach((el) => {
+    const isActive = el === screen;
+    el.hidden = !isActive;
+    el.classList.toggle('screen--active', isActive);
+  });
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+// Accepte également 10-10-2025 ou 10102025 pour éviter les erreurs de format.
+function normalizeDate(value) {
+  return value.replace(/\D/g, '');
+}
+
+unlockForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (normalizeDate(codeInput.value) !== normalizeDate(SECRET_CODE)) {
+    codeError.hidden = false;
+    inputShell.classList.add('input-shell--error');
+    inputShell.classList.remove('shake');
+    void inputShell.offsetWidth; // Relance la petite animation d'erreur.
+    inputShell.classList.add('shake');
+    codeInput.focus();
+    return;
+  }
+
+  codeError.hidden = true;
+  inputShell.classList.remove('input-shell--error');
+  currentQuestion = 0;
+  renderQuestion();
+  showScreen(quizScreen);
+  questionTitle.focus({ preventScroll: true });
+});
+
+// Clavier standard sur iPhone : l'utilisateur peut saisir les / lui-même.
+// La vérification accepte aussi la date sans séparateurs (10102025).
+codeInput.addEventListener('input', () => {
+  codeError.hidden = true;
+  inputShell.classList.remove('input-shell--error', 'shake');
+});
+
+function renderQuestion() {
+  const question = questions[currentQuestion];
+  const number = String(currentQuestion + 1).padStart(2, '0');
+  questionCounter.textContent = `${number} / ${String(questions.length).padStart(2, '0')}`;
+  questionNumber.textContent = number;
+  questionTitle.textContent = question.question;
+  questionTitle.setAttribute('tabindex', '-1');
+  progressTrack.setAttribute('aria-valuenow', String(currentQuestion + 1));
+  progressFill.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+  // Construire les réponses avec des éléments HTML sûrs, sans HTML injecté.
+  answerList.replaceChildren();
+  const legend = document.createElement('legend');
+  legend.className = 'sr-only';
+  legend.textContent = 'Choisis une réponse';
+  answerList.appendChild(legend);
+
+  question.answers.forEach(({ letter, text }) => {
+    const label = document.createElement('label');
+    label.className = 'answer-option';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'quiz-answer';
+    input.value = letter;
+    input.checked = answers[currentQuestion] === letter;
+    const letterBubble = document.createElement('span');
+    letterBubble.className = 'answer-letter';
+    letterBubble.textContent = letter;
+    const answerText = document.createElement('span');
+    answerText.className = 'answer-text';
+    answerText.textContent = text;
+    const check = document.createElement('span');
+    check.className = 'answer-check';
+    check.setAttribute('aria-hidden', 'true');
+    check.textContent = '✓';
+    label.append(input, letterBubble, answerText, check);
+    label.classList.toggle('is-selected', input.checked);
+    answerList.appendChild(label);
+  });
+
+  backButton.hidden = currentQuestion === 0;
+  nextButton.disabled = answers[currentQuestion] === null;
+  nextButton.innerHTML = currentQuestion === questions.length - 1
+    ? 'Découvrir la surprise <span aria-hidden="true">♡</span>'
+    : 'Continuer <span aria-hidden="true">→</span>';
+  questionContent.style.animation = 'none';
+  void questionContent.offsetWidth;
+  questionContent.style.animation = '';
+}
+
+answerList.addEventListener('change', (event) => {
+  if (!event.target.matches('input[type="radio"]')) return;
+  answers[currentQuestion] = event.target.value;
+  for (const option of answerList.querySelectorAll('.answer-option')) {
+    option.classList.toggle('is-selected', option.querySelector('input').checked);
+  }
+  nextButton.disabled = false;
+});
+
+backButton.addEventListener('click', () => {
+  if (currentQuestion === 0) return;
+  currentQuestion -= 1;
+  renderQuestion();
+  questionTitle.focus({ preventScroll: true });
+});
+
+nextButton.addEventListener('click', () => {
+  if (answers[currentQuestion] === null) return;
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion += 1;
+    renderQuestion();
+    questionTitle.focus({ preventScroll: true });
+  } else {
+    showScreen(letterScreen);
+    const letterTitle = document.getElementById('letter-title');
+    letterTitle.setAttribute('tabindex', '-1');
+    letterTitle.focus({ preventScroll: true });
+    sendLoveHearts();
+  }
+});
+
+giftButton.addEventListener('click', () => {
+  giftMessage.hidden = false;
+  giftButton.setAttribute('aria-expanded', 'true');
+  giftMessage.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
+});
+
+replayButton.addEventListener('click', () => {
+  giftMessage.hidden = true;
+  giftButton.setAttribute('aria-expanded', 'false');
+  answers = Array(questions.length).fill(null);
+  currentQuestion = 0;
+  renderQuestion();
+  showScreen(quizScreen);
+  questionTitle.focus({ preventScroll: true });
+});
+
+function sendLoveHearts() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const colors = ['#ffc4d7', '#f8acc5', '#ffe3c5', '#f0a9c3'];
+  for (let index = 0; index < 26; index += 1) {
+    const heart = document.createElement('span');
+    heart.className = 'flying-heart';
+    heart.textContent = index % 5 === 0 ? '♡' : '♥';
+    heart.style.setProperty('--heart-left', `${Math.random() * 100}%`);
+    heart.style.setProperty('--heart-size', `${13 + Math.random() * 21}px`);
+    heart.style.setProperty('--heart-color', colors[index % colors.length]);
+    heart.style.setProperty('--heart-duration', `${5 + Math.random() * 3}s`);
+    heart.style.setProperty('--heart-drift', `${-70 + Math.random() * 140}px`);
+    heart.style.animationDelay = `${Math.random() * 2.1}s`;
+    heart.addEventListener('animationend', () => heart.remove(), { once: true });
+    heartsLayer.appendChild(heart);
+  }
+}
+
+</script>
+</body>
+</html>
